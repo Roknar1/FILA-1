@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17251f">
+  <title>La Mesa — Reserva tu mesa</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+    :root{--green:#20382d;--green2:#304b3d;--gold:#d8ad69;--cream:#f6f2e9;--ink:#202720;--muted:#788078}
+    *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh}
+    .hero{min-height:245px;background:linear-gradient(90deg,rgba(14,31,23,.88),rgba(14,31,23,.46)),url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=85') center 52%/cover;display:flex;align-items:center;justify-content:center;text-align:center;color:white;padding:35px 20px}
+    .eyebrow{letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-size:11px;font-weight:700}.hero h1{font:700 clamp(38px,6vw,58px) 'Playfair Display',serif;margin:12px 0 8px}.hero p{margin:0;color:#eee;font-size:14px}
+    main{width:min(900px,calc(100% - 32px));margin:-28px auto 50px;position:relative}.panel{background:white;border-radius:14px;box-shadow:0 18px 55px #17251f16;padding:clamp(22px,5vw,46px)}
+    .intro{text-align:center;margin-bottom:30px}.intro h2{font:600 27px 'Playfair Display',serif;margin:0 0 8px}.intro p{color:var(--muted);font-size:13px;margin:0}
+    .section-title{display:flex;align-items:center;gap:12px;margin:27px 0 17px;color:var(--green);font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase}.section-title:after{content:'';height:1px;background:#e8e9e3;flex:1}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}label{font-size:12px;font-weight:700;color:#39443c}input,select,textarea{width:100%;border:1px solid #dfe3dc;border-radius:7px;padding:13px 12px;font:14px 'DM Sans',sans-serif;color:var(--ink);background:#fff;outline:none;transition:.2s}input:focus,select:focus,textarea:focus{border-color:var(--green2);box-shadow:0 0 0 3px #304b3d14}textarea{resize:vertical;min-height:88px}input::placeholder,textarea::placeholder{color:#a3aaa3}
+    .checks{display:flex;flex-wrap:wrap;gap:10px}.check{display:flex;align-items:center;gap:8px;border:1px solid #e1e5de;padding:10px 12px;border-radius:7px;font-size:12px;color:#505a51}.check input{width:auto;accent-color:var(--green)}
+    .consent{display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--muted);line-height:1.5;margin:22px 0}.consent input{width:auto;margin-top:2px;accent-color:var(--green)}
+    button{width:100%;border:0;border-radius:7px;background:var(--green);color:white;padding:16px;font:700 13px 'DM Sans',sans-serif;letter-spacing:1.1px;text-transform:uppercase;cursor:pointer;transition:.2s}button:hover{background:var(--green2);transform:translateY(-1px)}button:disabled{opacity:.6;cursor:wait}
+    .note{text-align:center;color:var(--muted);font-size:11px;margin:14px 0 0}.message{display:none;margin-top:18px;padding:15px;border-radius:8px;background:#edf5ed;color:#245b36;font-size:13px;line-height:1.5}.message.show{display:block}
+    footer{text-align:center;color:#858b83;font-size:11px;padding:0 20px 30px}
+    @media(max-width:600px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.hero{min-height:215px}.panel{padding:23px 18px}main{width:calc(100% - 22px)}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div><div class="eyebrow">Cocina · Experiencia · Encuentro</div><h1>La Mesa</h1><p>Los mejores momentos comienzan alrededor de una mesa.</p></div>
+  </header>
+  <main>
+    <section class="panel">
+      <div class="intro"><h2>Reserva tu experiencia</h2><p>Completa tus datos y solicita tu mesa. ¡Te esperamos!</p></div>
+      <form id="reservationForm">
+        <div class="section-title">01 · Tus datos</div>
+        <div class="grid">
+          <div class="field"><label for="name">Nombre completo *</label><input id="name" name="name" autocomplete="name" placeholder="Ej. María García" required></div>
+          <div class="field"><label for="phone">Teléfono *</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+51 999 999 999" required></div>
+          <div class="field full"><label for="email">Correo electrónico *</label><input id="email" name="email" type="email" autocomplete="email" placeholder="tunombre@correo.com" required></div>
+        </div>
+        <div class="section-title">02 · Tu reserva</div>
+        <div class="grid">
+          <div class="field"><label for="date">Fecha *</label><input id="date" name="date" type="date" required></div>
+          <div class="field"><label for="time">Hora *</label><select id="time" name="time" required><option value="">Selecciona una hora</option><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option><option>14:30</option><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option></select></div>
+          <div class="field"><label for="guests">Número de personas *</label><select id="guests" name="guests" required><option value="">Selecciona</option><option>1 persona</option><option>2 personas</option><option>3 personas</option><option>4 personas</option><option>5 personas</option><option>6 personas</option><option>7 personas</option><option>8 personas</option><option>Más de 8 personas</option></select></div>
+          <div class="field"><label for="occasion">Ocasión especial</label><select id="occasion" name="occasion"><option value="">Ninguna</option><option>Cumpleaños</option><option>Aniversario</option><option>Cita romántica</option><option>Reunión familiar</option><option>Reunión de trabajo</option><option>Otra</option></select></div>
+        </div>
+        <div class="section-title">03 · Preferencias</div>
+        <div class="grid">
+          <div class="field full"><label>Preferencias alimentarias</label><div class="checks"><label class="check"><input type="checkbox" name="diet" value="Vegetariano"> Vegetariano</label><label class="check"><input type="checkbox" name="diet" value="Vegano"> Vegano</label><label class="check"><input type="checkbox" name="diet" value="Sin gluten"> Sin gluten</label><label class="check"><input type="checkbox" name="diet" value="Sin lactosa"> Sin lactosa</label><label class="check"><input type="checkbox" name="diet" value="Ninguna"> Ninguna</label></div></div>
+          <div class="field full"><label for="notes">Comentarios adicionales</label><textarea id="notes" name="notes" placeholder="Alergias, solicitudes especiales o alguna indicación..."></textarea></div>
+        </div>
+        <label class="consent"><input type="checkbox" id="privacy" required><span>Acepto que mis datos sean utilizados para gestionar y confirmar mi reserva. *</span></label>
+        <button type="submit" id="submitBtn">Solicitar reserva</button>
+        <p class="note">* Campos obligatorios. La reserva queda pendiente de confirmación.</p>
+        <div class="message" id="successMessage" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+  <footer>LA MESA · Una experiencia para compartir</footer>
+  <script>
+    const dateInput = document.getElementById('date');
+    const today = new Date();
+    const localToday = new Date(today.getTime() - today.getTimezoneOffset()*60000).toISOString().split('T')[0];
+    dateInput.min = localToday;
+    document.getElementById('reservationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      if (!this.reportValidity()) return;
+      const data = new FormData(this);
+      const diets = data.getAll('diet');
+      const message = document.getElementById('successMessage');
+      const name = data.get('name');
+      message.textContent = '¡Gracias, ' + name + '! Tu solicitud para el ' + data.get('date') + ' a las ' + data.get('time') + ' para ' + data.get('guests') + ' ha sido registrada en esta página. Recuerda que está pendiente de confirmación por el restaurante.';
+      message.classList.add('show');
+      message.scrollIntoView({behavior:'smooth',block:'nearest'});
+    });
+  </script>
+</body>
+</html>
